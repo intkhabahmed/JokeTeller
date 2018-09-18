@@ -23,6 +23,14 @@
         android:layout_below="@+id/instructions_text_view"
         android:layout_centerInParent="true"
         android:onClick="tellJoke"
-        android:text="@string/button_text" />
+        android:text="@string/button_text"
+        tools:ignore="OnClick" />
+
+    <ProgressBar
+        android:id="@+id/loading_pb"
+        android:layout_width="@dimen/medium_icon_size"
+        android:layout_height="@dimen/medium_icon_size"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
+        findViewById(R.id.loading_pb).setVisibility(View.VISIBLE);
         new EndpointsAsyncTask().execute();
         //Toast.makeText(this, new JokeTeller().getJoke(), Toast.LENGTH_SHORT).show();
 
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             if (mJokeIdlingResource != null) {
                 mJokeIdlingResource.setIdleState(true);
             }
+            findViewById(R.id.loading_pb).setVisibility(View.INVISIBLE);
             Intent intent = new Intent(MainActivity.this, JokeActivity.class);
             intent.putExtra(Intent.EXTRA_TEXT, result);
             startActivity(intent);
