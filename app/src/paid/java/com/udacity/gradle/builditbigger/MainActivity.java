@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     public void tellJoke(View view) {
         findViewById(R.id.loading_pb).setVisibility(View.VISIBLE);
         new EndpointsAsyncTask().execute();
-        //Toast.makeText(this, new JokeTeller().getJoke(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -104,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             if (mJokeIdlingResource != null) {
                 mJokeIdlingResource.setIdleState(true);
             }
-            if(!result.isEmpty()) {
+            if (!result.isEmpty()) {
                 findViewById(R.id.loading_pb).setVisibility(View.INVISIBLE);
                 Intent intent = new Intent(MainActivity.this, JokeActivity.class);
                 intent.putExtra(Intent.EXTRA_TEXT, result);
