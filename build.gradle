@@ -20,3 +20,13 @@ allprojects {
         google()
     }
 }
+
+task runAutomatedTest {
+    def gceStart = tasks.getByPath(":backend:appengineStart")
+    def gceStop = tasks.getByPath(":backend:appengineStop")
+    def connectedTest = tasks.getByPath(":app:connectedCheck")
+
+    dependsOn gceStart, connectedTest
+    finalizedBy gceStop
+    connectedTest.mustRunAfter(gceStart)
+}

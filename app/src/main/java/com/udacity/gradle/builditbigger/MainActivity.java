@@ -104,10 +104,12 @@ public class MainActivity extends AppCompatActivity {
             if (mJokeIdlingResource != null) {
                 mJokeIdlingResource.setIdleState(true);
             }
-            findViewById(R.id.loading_pb).setVisibility(View.INVISIBLE);
-            Intent intent = new Intent(MainActivity.this, JokeActivity.class);
-            intent.putExtra(Intent.EXTRA_TEXT, result);
-            startActivity(intent);
+            if(!result.isEmpty()) {
+                findViewById(R.id.loading_pb).setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(MainActivity.this, JokeActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, result);
+                startActivity(intent);
+            }
         }
     }
 
