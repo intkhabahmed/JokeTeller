@@ -44,7 +44,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     endpointsServer project(path: ':backend', configuration: 'endpoints')
-    implementation project(":JokeProvider")
     implementation project(":displayjoke")
     implementation 'com.android.support:appcompat-v7:27.1.1'
     freeImplementation('com.google.android.gms:play-services-ads:15.0.1'){

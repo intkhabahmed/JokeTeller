@@ -27,6 +27,9 @@ public class JokeLoadingTest {
     public void setupResources() {
         mIdlingResource = mActivityTestRule.getActivity().getIdlingResource();
         IdlingRegistry.getInstance().register(mIdlingResource);
+        if (BuildConfig.APPLICATION_ID.equals(mActivityTestRule.getActivity().getString(R.string.free_app_id))) {
+            mActivityTestRule.getActivity().setTestRunning(true);
+        }
     }
 
     @Test

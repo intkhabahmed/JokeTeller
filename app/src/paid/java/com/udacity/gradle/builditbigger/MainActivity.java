@@ -111,6 +111,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setTestRunning(boolean isTest) {
+        //Nothing to do in Paid Version
+    }
+
     @VisibleForTesting
     public IdlingResource getIdlingResource() {
         if (mJokeIdlingResource == null) {

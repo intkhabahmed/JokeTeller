@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private JokeIdlingResource mJokeIdlingResource;
     private PublisherInterstitialAd mInterstitialAd;
     private String mJokeString;
+    private boolean isTestRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             if(!result.isEmpty()) {
                 mJokeString = result;
                 findViewById(R.id.loading_pb).setVisibility(View.INVISIBLE);
-                if (mInterstitialAd.isLoaded()) {
+                if (mInterstitialAd.isLoaded() && !isTestRunning) {
                     mInterstitialAd.show();
                 } else {
                     Intent intent = new Intent(MainActivity.this, JokeActivity.class);
@@ -132,6 +133,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void setTestRunning(boolean isTest) {
+        isTestRunning = isTest;
     }
 
     @VisibleForTesting
