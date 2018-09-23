@@ -6,10 +6,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.displayjoke.JokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -28,11 +30,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Nullable
     private JokeIdlingResource mJokeIdlingResource;
+    private ImageView mouth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mouth = findViewById(R.id.mouth_iv);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mouth.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.frown));
     }
 
     @Override
@@ -58,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        ImageView mouth = findViewById(R.id.mouth_iv);
         mouth.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.smile));
         findViewById(R.id.loading_pb).setVisibility(View.VISIBLE);
         new EndpointsAsyncTask().execute();

@@ -37,11 +37,13 @@ public class MainActivity extends AppCompatActivity {
     private PublisherInterstitialAd mInterstitialAd;
     private String mJokeString;
     private boolean isTestRunning;
+    private ImageView mouth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mouth = findViewById(R.id.mouth_iv);
         mInterstitialAd = new PublisherInterstitialAd(this);
         mInterstitialAd.setAdUnitId("/6499/example/interstitial");
         mInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
@@ -54,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mouth.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.frown));
     }
 
     @Override
@@ -79,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        ImageView mouth = findViewById(R.id.mouth_iv);
         mouth.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.smile));
         findViewById(R.id.loading_pb).setVisibility(View.VISIBLE);
         new EndpointsAsyncTask().execute();
