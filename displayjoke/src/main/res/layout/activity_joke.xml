@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".JokeActivity">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/joke_label_tv"
-            android:layout_width="wrap_content"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_space"
-            android:layout_marginLeft="@dimen/medium_space"
-            android:layout_marginRight="@dimen/medium_space"
-            android:layout_marginStart="@dimen/medium_space"
-            android:layout_marginTop="@dimen/medium_space"
-            android:text="@string/joke_label"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:context=".JokeActivity">
 
-        <TextView
-            android:id="@+id/joke_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/large_space"
-            android:layout_marginLeft="@dimen/large_space"
-            android:layout_marginRight="@dimen/large_space"
-            android:layout_marginStart="@dimen/large_space"
-            android:layout_marginTop="@dimen/large_space"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/joke_label_tv" />
+            <TextView
+                android:id="@+id/joke_label_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/medium_space"
+                android:layout_marginLeft="@dimen/medium_space"
+                android:layout_marginRight="@dimen/medium_space"
+                android:layout_marginStart="@dimen/medium_space"
+                android:layout_marginTop="@dimen/large_space"
+                android:text="@string/joke_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
-</android.support.v4.widget.NestedScrollView>
+            <android.support.v7.widget.CardView
+                android:layout_width="@dimen/no_space"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_space"
+                app:cardCornerRadius="@dimen/medium_space"
+                app:cardElevation="@dimen/medium_space"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/joke_label_tv">
+
+                <TextView
+                    android:id="@+id/joke_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/large_space"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+            </android.support.v7.widget.CardView>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

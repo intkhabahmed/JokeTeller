@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
+        ImageView mouth = findViewById(R.id.mouth_iv);
+        mouth.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.smile));
         findViewById(R.id.loading_pb).setVisibility(View.VISIBLE);
         new EndpointsAsyncTask().execute();
 
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @VisibleForTesting
     public void setTestRunning(boolean isTest) {
         //Nothing to do in Paid Version
     }

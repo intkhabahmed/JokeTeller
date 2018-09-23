@@ -1,37 +1,92 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivityFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/instructions_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/instructions"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivityFragment">
 
-    <Button
-        android:id="@+id/tell_joke_btn"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/instructions_text_view"
-        android:layout_centerInParent="true"
-        android:onClick="tellJoke"
-        android:text="@string/button_text"
-        tools:ignore="OnClick" />
+        <TextView
+            android:id="@+id/instructions_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/medium_space"
+            android:layout_marginLeft="@dimen/medium_space"
+            android:layout_marginRight="@dimen/medium_space"
+            android:layout_marginStart="@dimen/medium_space"
+            android:layout_marginTop="@dimen/medium_space"
+            android:gravity="center"
+            android:text="@string/instructions"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/loading_pb"
-        android:layout_width="@dimen/medium_icon_size"
-        android:layout_height="@dimen/medium_icon_size"
-        android:layout_centerInParent="true"
-        android:visibility="invisible"/>
+        <ImageButton
+            android:id="@+id/tell_joke_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/xlarge_icon"
+            android:layout_height="@dimen/xlarge_icon"
+            android:layout_below="@+id/instructions_text_view"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/button_text"
+            android:onClick="tellJoke"
+            android:scaleType="centerCrop"
+            android:src="@drawable/nose"
+            android:text="@string/button_text"
+            ads:layout_constraintEnd_toStartOf="@+id/eyes_iv"
+            ads:layout_constraintStart_toEndOf="@+id/eyes_iv"
+            ads:layout_constraintTop_toBottomOf="@+id/eyes_iv"
+            tools:ignore="OnClick" />
 
-</RelativeLayout>
+        <ProgressBar
+            android:id="@+id/loading_pb"
+            android:layout_width="@dimen/medium_icon_size"
+            android:layout_height="@dimen/medium_icon_size"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/medium_space"
+            android:layout_marginEnd="@dimen/medium_space"
+            android:layout_marginLeft="@dimen/medium_space"
+            android:layout_marginRight="@dimen/medium_space"
+            android:layout_marginStart="@dimen/medium_space"
+            android:layout_marginTop="@dimen/medium_space"
+            android:visibility="invisible"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/eyes_iv"
+            android:layout_width="@dimen/xxlarge_icon"
+            android:layout_height="@dimen/xxlarge_icon"
+            android:layout_marginEnd="@dimen/medium_space"
+            android:layout_marginLeft="@dimen/medium_space"
+            android:layout_marginRight="@dimen/medium_space"
+            android:layout_marginStart="@dimen/medium_space"
+            android:layout_marginTop="@dimen/medium_space"
+            android:contentDescription="@string/cartoon_eyes"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toBottomOf="@+id/instructions_text_view"
+            ads:srcCompat="@drawable/eyes" />
+
+        <ImageView
+            android:id="@+id/mouth_iv"
+            android:layout_width="@dimen/xxlarge_icon"
+            android:layout_height="@dimen/medium_icon_size"
+            android:layout_marginTop="@dimen/medium_space"
+            android:contentDescription="@string/cartoon_mouth"
+            ads:layout_constraintEnd_toStartOf="@+id/eyes_iv"
+            ads:layout_constraintStart_toEndOf="@+id/eyes_iv"
+            ads:layout_constraintTop_toBottomOf="@+id/tell_joke_btn"
+            ads:srcCompat="@drawable/frown" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
