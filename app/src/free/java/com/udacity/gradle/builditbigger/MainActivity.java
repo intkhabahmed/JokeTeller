@@ -1,8 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
@@ -12,20 +10,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.displayjoke.JokeActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
+import com.udacity.gradle.builditbigger.utils.JokeAsyncTask;
 import com.udacity.gradle.builditbigger.utils.JokeIdlingResource;
-
-import java.io.IOException;
+import com.udacity.gradle.builditbigger.utils.OnEventListener;
 
 import javax.annotation.Nullable;
 
@@ -89,61 +83,34 @@ public class MainActivity extends AppCompatActivity {
     public void tellJoke(View view) {
         mouth.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.smile));
         findViewById(R.id.loading_pb).setVisibility(View.VISIBLE);
-        new EndpointsAsyncTask().execute();
-
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
-        private MyApi myApiService = null;
-
-        @Override
-        protected final String doInBackground(Void... params) {
-            if (mJokeIdlingResource != null) {
-                mJokeIdlingResource.setIdleState(false);
-            }
-            if (myApiService == null) {  // Only do this once
-                MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
-                        new AndroidJsonFactory(), null)
-                        // options for running against local devappserver
-                        // - 10.0.2.2 is localhost's IP address in Android emulator
-                        // - turn off compression when running against local devappserver
-                        .setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                        .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                            @Override
-                            public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) {
-                                abstractGoogleClientRequest.setDisableGZipContent(true);
-                            }
-                        });
-                // end options for devappserver
-
-                myApiService = builder.build();
-            }
-
-            try {
-                return myApiService.retrieveJoke().execute().getData();
-            } catch (IOException e) {
-                return e.getMessage();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (mJokeIdlingResource != null) {
-                mJokeIdlingResource.setIdleState(true);
-            }
-            if(!result.isEmpty()) {
-                mJokeString = result;
-                findViewById(R.id.loading_pb).setVisibility(View.INVISIBLE);
-                if (mInterstitialAd.isLoaded() && !isTestRunning) {
-                    mInterstitialAd.show();
-                } else {
-                    Intent intent = new Intent(MainActivity.this, JokeActivity.class);
-                    intent.putExtra(Intent.EXTRA_TEXT, result);
-                    startActivity(intent);
+        JokeAsyncTask jokeAsyncTask = new JokeAsyncTask(new OnEventListener<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if (mJokeIdlingResource != null) {
+                    mJokeIdlingResource.setIdleState(true);
+                }
+                if (!result.isEmpty()) {
+                    mJokeString = result;
+                    findViewById(R.id.loading_pb).setVisibility(View.INVISIBLE);
+                    if (mInterstitialAd.isLoaded() && !isTestRunning) {
+                        mInterstitialAd.show();
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, JokeActivity.class);
+                        intent.putExtra(Intent.EXTRA_TEXT, result);
+                        startActivity(intent);
+                    }
                 }
             }
+
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        if (mJokeIdlingResource != null) {
+            mJokeIdlingResource.setIdleState(false);
         }
+        jokeAsyncTask.execute();
     }
 
     @VisibleForTesting
